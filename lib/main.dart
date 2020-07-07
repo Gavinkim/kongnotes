@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kongnote/auth/auth_repositories.dart';
 import 'package:kongnote/blocs/auth/auth_bloc.dart';
+import 'package:kongnote/notes/notes_repository.dart';
 
 import 'blocs/blocs.dart';
 import 'screens/home_screen.dart';
@@ -21,6 +22,12 @@ class MyApp extends StatelessWidget {
             authRepository: AuthRepository(),
           )..add(AppStarted()),
         ),
+        BlocProvider<NotesBloc>(
+          create: (_) => NotesBloc(
+            authRepository: AuthRepository(),
+            notesRepository: NotesRepository(),
+          ),
+        )
       ],
       child: MaterialApp(
         title: 'KongNotes',
