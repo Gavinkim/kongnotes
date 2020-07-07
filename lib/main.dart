@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kongnote/auth/auth_repositories.dart';
 import 'package:kongnote/blocs/auth/auth_bloc.dart';
 
+import 'blocs/blocs.dart';
 import 'screens/home_screen.dart';
 
 void main() {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(MyApp());
 }
 
