@@ -3,19 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kongnote/blocs/auth/auth_bloc.dart';
 import 'package:kongnote/blocs/blocs.dart';
-import 'package:kongnote/config/paths.dart';
+import 'package:kongnote/repositories/repositories.dart';
 import 'package:kongnote/widgets/widgets.dart';
+
+import 'note_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        //Fetch notes
+        //Fetch repositories.notes
         context.bloc<NotesBloc>().add(FetchNotes());
       },
       builder: (context, authState) {
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            child: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => BlocProvider<NoteDetailBloc>(
+                      create: (_) => NoteDetailBloc(
+                        authBloc: context.bloc<AuthBloc>(),
+                        notesRepository: NotesRepository(),
+                      ),
+                      child: NoteDetailScreen(),
+                    ))),
+          ),
           body: BlocBuilder<NotesBloc, NotesState>(
             builder: (context, notesState) {
               return _buildBody(context, authState, notesState);
@@ -56,7 +71,17 @@ class HomeScreen extends StatelessWidget {
             notesState is NotesLoaded
                 ? NotesGrid(
                     notes: notesState.notes,
-                    onTap: (note) => print(note),
+                    onTap: (note) =>
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => BlocProvider<NoteDetailBloc>(
+                                  create: (_) => NoteDetailBloc(
+                                    authBloc: context.bloc<AuthBloc>(),
+                                    notesRepository: NotesRepository(),
+                                  )..add(NoteLoaded(note: note)),
+                                  child: NoteDetailScreen(
+                                    note: note,
+                                  ),
+                                ))),
                   )
                 : const SliverPadding(padding: EdgeInsets.zero),
           ],

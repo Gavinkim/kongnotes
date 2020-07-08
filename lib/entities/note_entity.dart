@@ -9,20 +9,25 @@ class NoteEntity extends Equatable {
   final String color;
   final Timestamp timestamp;
 
-  const NoteEntity(
-      {this.id,
-      @required this.userId,
-      @required this.content,
-      @required this.color,
-      @required this.timestamp});
+  const NoteEntity({
+    this.id,
+    @required this.userId,
+    @required this.content,
+    @required this.color,
+    @required this.timestamp,
+  });
 
   @override
   List<Object> get props => [id, userId, content, color, timestamp];
 
   @override
-  String toString() {
-    return 'NoteEntity{id: $id, userId: $userId, content: $content, color: $color, timestamp: $timestamp}';
-  }
+  String toString() => '''NoteEntity {
+    id: $id,
+    userId: $userId,
+    content: $content,
+    color: $color,
+    timestamp: $timestamp,
+  }''';
 
   Map<String, dynamic> toDocument() {
     return {

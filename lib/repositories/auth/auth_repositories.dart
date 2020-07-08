@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:kongnote/auth/base_auth_repository.dart';
 import 'package:kongnote/config/paths.dart';
 import 'package:kongnote/entities/entities.dart';
 import 'package:kongnote/model/user_model.dart';
+
+import 'base_auth_repository.dart';
+
 
 class AuthRepository extends BaseAuthRepository {
   final Firestore _firestore;
@@ -31,7 +33,7 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<bool> isAnonymouse() async {
+  Future<bool> isAnonymous() async {
     final currentUser = await _firebaseAuth.currentUser();
     return currentUser.isAnonymous;
   }

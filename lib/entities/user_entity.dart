@@ -16,12 +16,14 @@ class UserEntity extends Equatable {
 
   @override
   String toString() => '''UserEntity {
-      id: $id,
-      email: $email
-    }''';
+    id: $id,
+    email: $email
+  }''';
 
   Map<String, dynamic> toDocument() {
-    return {'email': email};
+    return {
+      'email': email,
+    };
   }
 
   factory UserEntity.fromSnapshot(DocumentSnapshot doc) {

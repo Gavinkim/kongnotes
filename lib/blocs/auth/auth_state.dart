@@ -18,7 +18,7 @@ class Anonymous extends AuthState {
   List<Object> get props => [user];
 
   @override
-  String toString() => 'Anonymous { userId: ${user.id}}';
+  String toString() => 'Anonymous { userId: ${user.id} }';
 }
 
 class Authenticated extends AuthState {
@@ -30,7 +30,5 @@ class Authenticated extends AuthState {
   List<Object> get props => [user];
 
   @override
-  String toString() {
-    return 'Authenticated{user: $user.id}';
-  }
+  String toString() => 'Authenticated { userId: ${user.id} }';
 }

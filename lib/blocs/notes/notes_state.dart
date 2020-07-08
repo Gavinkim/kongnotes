@@ -20,8 +20,8 @@ class NotesLoaded extends NotesState {
   List<Object> get props => [notes];
 
   @override
-  String toString() {
-    return 'NotesLoaded{notes: $notes}';
-  }
+  String toString() => 'NotesLoaded { notes: $notes }';
 }
+
+class NotesError extends NotesState {}
 

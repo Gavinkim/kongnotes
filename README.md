@@ -3,7 +3,7 @@
 ### pre-setup
 <pre>
 - firebase
-    ㄴ auth config
+    ㄴ repositories.auth config
     ㄴ android google-services.json setup
         ㄴ android -> app -> google-services.json
     ㄴ ios GoogleService-Info.plist setup

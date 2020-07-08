@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kongnote/config/paths.dart';
 import 'package:kongnote/entities/entities.dart';
-import 'package:kongnote/notes/base_notes_repository.dart';
 import 'package:kongnote/model/models.dart';
+
+import 'base_notes_repository.dart';
 
 class NotesRepository extends BaseNotesRepository {
   final Firestore _firestore;

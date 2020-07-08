@@ -3,12 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:kongnote/auth/auth_repositories.dart';
 import 'package:kongnote/model/models.dart';
-import 'package:kongnote/notes/notes_repository.dart';
+import 'package:kongnote/repositories/auth/auth_repositories.dart';
+import 'package:kongnote/repositories/notes/notes_repository.dart';
 
 part 'notes_event.dart';
-
 part 'notes_state.dart';
 
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
@@ -27,8 +26,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
   @override
   Stream<NotesState> mapEventToState(
-    NotesEvent event,
-  ) async* {
+      NotesEvent event,
+      ) async* {
     if (event is FetchNotes) {
       yield* _mapFetchNotesToState();
     } else if (event is UpdateNotes) {
@@ -44,8 +43,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       _notesSubscription = _notesRepository
           .streamNotes(userId: currentUser.id)
           .listen((notes) => add(UpdateNotes(notes: notes)));
-    } catch (e) {
-      print(e);
+    } catch (err) {
+      print(err);
       yield NotesError();
     }
   }
@@ -55,7 +54,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   }
 
   @override
-  Future<Function> close() {
+  Future<void> close() {
     _notesSubscription?.cancel();
     return super.close();
   }

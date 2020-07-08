@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kongnote/auth/auth_repositories.dart';
 import 'package:kongnote/blocs/auth/auth_bloc.dart';
-import 'package:kongnote/notes/notes_repository.dart';
 
 import 'blocs/blocs.dart';
+import 'repositories/repositories.dart';
 import 'screens/home_screen.dart';
 
 void main() {
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
         title: 'KongNotes',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.white,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: HomeScreen(),

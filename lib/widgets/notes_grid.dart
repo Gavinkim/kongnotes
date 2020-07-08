@@ -24,7 +24,7 @@ class NotesGrid extends StatelessWidget {
           childAspectRatio: 0.8,
         ),
         delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
+              (BuildContext context, int index) {
             final Note note = notes[index];
             return _buildNote(note);
           },

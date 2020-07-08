@@ -15,12 +15,8 @@ class UpdateNotes extends NotesEvent {
   const UpdateNotes({@required this.notes});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [notes];
 
   @override
-  String toString() {
-    return 'UpdateNotes{notes: $notes}';
-  }
+  String toString() => 'UpdateNotes { notes: $notes }';
 }
-
-class NotesError extends NotesState {}

@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
-import 'package:kongnote/auth/auth_repositories.dart';
 import 'package:kongnote/model/models.dart';
+import 'package:kongnote/repositories/auth/auth_repositories.dart';
 
 part 'auth_event.dart';
 
@@ -21,9 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthState get initialState => Unauthenticated();
 
   @override
-  Stream<AuthState> mapEventToState(
-    AuthEvent event,
-  ) async* {
+  Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is AppStarted) {
       yield* _mapAppStartedToState();
     } else if (event is Login) {
@@ -39,14 +36,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (currentUser == null) {
         currentUser = await _authRepository.loginAnonymously();
       }
-      final isAnonymous = await _authRepository.isAnonymouse();
+      final isAnonymous = await _authRepository.isAnonymous();
       if (isAnonymous) {
         yield Anonymous(currentUser);
       } else {
         yield Authenticated(currentUser);
       }
-    } catch (e) {
-      print(e);
+    } catch (err) {
+      print(err);
       yield Unauthenticated();
     }
   }
@@ -55,8 +52,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       User currentUser = await _authRepository.getCurrentUser();
       yield Authenticated(currentUser);
-    } catch (e) {
-      print(e);
+    } catch (err) {
+      print(err);
       yield Unauthenticated();
     }
   }
@@ -65,8 +62,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await _authRepository.logout();
       yield* _mapAppStartedToState();
-    } catch (e) {
-      print(e);
+    } catch (err) {
+      print(err);
       yield Unauthenticated();
     }
   }

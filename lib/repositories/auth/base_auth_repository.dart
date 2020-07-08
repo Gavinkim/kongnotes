@@ -1,5 +1,5 @@
 import 'package:kongnote/model/models.dart';
-import 'package:kongnote/repositories/base_repository.dart';
+import 'package:kongnote/repositories/repositories.dart';
 
 abstract class BaseAuthRepository extends BaseRepository {
   Future<User> loginAnonymously();
@@ -12,5 +12,5 @@ abstract class BaseAuthRepository extends BaseRepository {
 
   Future<User> getCurrentUser();
 
-  Future<bool> isAnonymouse();
+  Future<bool> isAnonymous();
 }

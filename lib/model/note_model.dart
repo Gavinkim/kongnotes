@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kongnote/entities/entities.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 class Note extends Equatable {
   final String id;
   final String userId;
@@ -19,12 +22,16 @@ class Note extends Equatable {
   });
 
   @override
-  List<Object> get props => [id, content, color, timestamp];
+  List<Object> get props => [id, userId, content, color, timestamp];
 
   @override
-  String toString() {
-    return 'Note{id: $id, userId: $userId, content: $content, color: $color, timestamp: $timestamp}';
-  }
+  String toString() => '''Note {
+    id: $id,
+    userId: $userId,
+    content: $content,
+    color: $color,
+    timestamp: $timestamp
+  }''';
 
   NoteEntity toEntity() {
     return NoteEntity(
@@ -32,25 +39,34 @@ class Note extends Equatable {
       userId: userId,
       content: content,
       color: '#${color.value.toRadixString(16)}',
+      timestamp: Timestamp.fromDate(timestamp),
     );
   }
 
   factory Note.fromEntity(NoteEntity entity) {
     return Note(
-        id: entity.id, userId: entity.content, color: HexColor(entity.color));
+      id: entity.id,
+      userId: entity.userId,
+      content: entity.content,
+      color: HexColor(entity.color),
+      timestamp: entity.timestamp.toDate(),
+    );
   }
 
-  Note copy(
-      {String id,
-      String userId,
-      String cotent,
-      Color color,
-      DateTime timestamp}) {
+  Note copy({
+    String id,
+    String userId,
+    String content,
+    Color color,
+    DateTime timestamp,
+  }) {
     return Note(
-        id: id ?? this.id,
-        userId: userId ?? this.userId,
-        content: content ?? this.content,
-        timestamp: timestamp ?? this.timestamp);
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      content: content ?? this.content,
+      color: color ?? this.color,
+      timestamp: timestamp ?? this.timestamp,
+    );
   }
 }
 
